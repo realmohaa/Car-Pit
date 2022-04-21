@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verify } from "jsonwebtoken";
 
-const secret = proces.env.JWT_SECRET;
+const secret = process.env.JWT_SECRET;
 
 export default function middleware(req,res) {
     const { cookies } = req;
@@ -11,7 +11,7 @@ export default function middleware(req,res) {
     
     if(url.includes('/dashboard')){
         if(jwt === undefined) {
-            return NextResponse.redirect(new URL('/login', url));
+            return NextResponse.rewrite(new URL('/login', url));
         }
 
         try {

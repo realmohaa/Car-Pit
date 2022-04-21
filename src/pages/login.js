@@ -1,4 +1,4 @@
-import { FaUser, FaLock, FaSignInAlt, FaUserPlus, FaUndo } from 'react-icons/fa';
+import { FaUserPlus, FaUndo } from 'react-icons/fa';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import AuthCanvas from '../components/AuthCanvas';
@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import { useRef, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { handleSubmit } from '../helpers/login_helper';
-import { errNotification } from '../utils/toasts';
+import Input from '../components/inputs/RequiredInput';
+import Button from '../components/buttons/Button';
 
 toast.configure()
 const Login = () => {
@@ -18,7 +19,7 @@ const Login = () => {
   const credentials = {username,password}
 
   useEffect(() => {
-      userRef.current.focus();
+      // userRef.current.focus();
   },[]);
 
   useEffect(() => {
@@ -41,57 +42,14 @@ const Login = () => {
             <form onSubmit={(e) => {handleSubmit(e, credentials, (res) => {
               if(res.status === 200) {
                 router.push("/dashboard")
-              } else {
-                console.log(res)
               }
-            })}} className="flex flex-col items-center space-y-4">
+            })}} className="flex flex-col items-center space-y-2">
               {/* Username Input */}
-              <div className="relative">
-                <span className="absolute flex inset-y-0 items-center pl-4 text-gray-400">
-                  <FaUser/>
-                </span>
-                <input 
-                  className="border border-gray-300 outline-none placeholder-gray-400 pl-12 pr-8 pt-2 pb-2 rounded-xl tansition focus:ring-2 focus:ring-blue-500"
-                  placeholder="Username"
-                  type="text"
-                  ref={userRef}
-                  onChange={(e)=>setUsername(e.target.value)}
-                  value={username}
-                  required
-                />
-              </div>
+              <Input icon="user" placeholder="Username" type="text" ref={userRef} username={username} setInput={setUsername}/>
               {/* Password Input */}
-              <div className="relative">
-                <span className="absolute flex inset-y-0 items-center pl-4 text-gray-400">
-                  <FaLock/>
-                </span>
-                <input 
-                  className="border border-gray-300 outline-none placeholder-gray-400 pl-12 pr-8 pt-2 pb-2 rounded-xl tansition focus:ring-2 focus:ring-blue-500"
-                  placeholder="Password"
-                  type="password"
-                  onChange={(e)=>setPassword(e.target.value)}
-                  value={password}
-                  required
-                />
-              </div>
+              <Input icon="pass" placeholder="Password" type="password" password={password} setInput={setPassword}/>
               {/* Login Button */}
-              <motion.button 
-                className="bg-blue-500 font-medium inline-flex items-center px-6 py-2 rounded-xl text-white"
-                whileHover={{
-                  scale: 1.1,
-                  tranition: {
-                      duration: .2
-                  }
-                }}
-                whileFocus={{
-                  scale: 0.95,
-                  backgroundColor: 'transparent',
-                  color: 'gray',
-                  border: '3px solid gray'
-                }}
-                >
-                <FaSignInAlt className="mr-2"/> Login
-              </motion.button>
+              <Button title="Login"/>
             </form>
           </div>
 
