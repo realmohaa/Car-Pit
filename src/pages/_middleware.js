@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verify } from "jsonwebtoken";
 
-const secret = process.env.JWT_SECRET;
+const secret = "51e49600-a42d-4539-8fc0-f9658dda49cc";
 
 export default function middleware(req,res) {
     const { cookies } = req;
