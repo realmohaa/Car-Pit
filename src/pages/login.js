@@ -4,12 +4,10 @@ import { motion } from 'framer-motion';
 import AuthCanvas from '../components/AuthCanvas';
 import { useRouter } from 'next/router';
 import { useRef, useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import { handleSubmit } from '../helpers/login_helper';
 import Input from '../components/inputs/RequiredInput';
 import Button from '../components/buttons/Button';
 
-toast.configure()
 const Login = () => {
   const router = useRouter();
   const userRef = useRef();
@@ -17,10 +15,6 @@ const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const credentials = {username,password}
-
-  useEffect(() => {
-      // userRef.current.focus();
-  },[]);
 
   useEffect(() => {
   },[username, password]);
@@ -40,8 +34,13 @@ const Login = () => {
             </div>
             {/* Login Form */}
             <form onSubmit={(e) => {handleSubmit(e, credentials, (res) => {
+              console.log(res)
               if(res.status === 200) {
-                router.push("/dashboard")
+                if(res.data.session.accountType === 'user') {
+                  router.push("/dashboard")
+                } else if(res.data.session.accountType === 'garage') {
+                  router.push("/garage")
+                }
               }
             })}} className="flex flex-col items-center space-y-2">
               {/* Username Input */}

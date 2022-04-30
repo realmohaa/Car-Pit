@@ -1,8 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    domains:['i.pinimg.com']
+    domains:[
+      'i.pinimg.com',
+      'tinyurl.com',
+      'upload.wikimedia.org',
+      'cdn0.iconfinder.com'
+    ]
   }
 }
 

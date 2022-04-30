@@ -1,4 +1,4 @@
-import Menu from "../components/menus/Menu";
+import MenuGarage from "../components/menus/MenuGarage";
 import styled from 'styled-components';
 
 const Page = styled.div`
@@ -14,7 +14,7 @@ const User = ({ children }) => {
   return (
       <div className="flex overflow-x-hidden max-w-screen w-screen h-screen bg-gradient-to-br from-blue-700 via-teal-700 to-teal-900">
         <div className="flex-1">
-          <Menu className="z-40"/>
+          <MenuGarage className="z-40"/>
         </div>
         <Page className="h-screen">
           {children}

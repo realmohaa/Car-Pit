@@ -1,76 +1,85 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaPlus } from 'react-icons/fa';
 import Image from 'next/image'
 
 const Container = styled.div`
     width: 100%;
 `
-const Title = styled.h1`
-  color: white;
-  font-size: 1.7rem;
-  margin:1rem 0;
-`
 const Card = styled(motion.div)`
     width: 20rem;
     height: 6rem;
-    padding: 1rem;
+    padding: .8rem;
     border-radius: 1rem;
     backdrop-filter: blur(8px) saturate(180%);
     -webkit-backdrop-filter: blur(8px) saturate(200%);
     background-color: rgba(17, 25, 40, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.025);
+    border: 4px solid rgba(255, 255, 255, 0.5425);
     position: relative;
     z-index:99;
     cursor: grab;
-    margin-top:2rem;
-`
-const Left = styled(motion.div)`
-cursor: grab;
-width:8rem;
 
-transition: all .2s ease;
-position: absolute;
-font-size: 2rem;
-top: 15%;
-left:1%;
-z-index: -1;
-color: rgba(255,0,0,.4)
+    @media (max-width: 768px) {
+        width: 17rem;
+        margin-bottom: 3rem;
+    }
+    @media (max-width: 425px) {
+        width: 19rem;
+        margin-bottom: 3rem;
+    }
 `
-
 const Right = styled(motion.div)`
     position: absolute;
-    right: 0;
-    top: -60%;
-    z-index: 999
-`
+    right: -1%;
+    top: -65%;
+    z-index: 999;
 
-const CardText = styled.h6`
+    @media (max-width: 768px) {
+        top: -55%;
+    }
+    @media (max-width: 425px) {
+        top: -50%;
+        right: 5%;
+    }
+`
+const CardText = styled(motion.h6)`
+    transform: translate(0,-40%);
+    font-size:1.7rem;
+    width: 30px;
+    line-height: .8;
+    color: rgba(255,255,255,.8)
 `
 
 const ActionCard = (props) => {
   return (
     <Container>
-        <Title>{props.title}</Title>
-        <Card drag="x" dragConstraints={{right: 0, left: 0}}>
-            <Left>
-                <FaPlus className='ml-2 cursor-pointer animate-spin'/>
-            </Left>
-            <CardText className='text-sm font-bold text-white mt-7'>{props.name}</CardText>
+        <Card 
+            drag="x"
+            dragConstraints={{right: 0, left: 0}}
+            whileHover={{scale: 1.05, x: 20}}
+            whileDrag={{rotate: 5}}
+        >
+            <CardText 
+                className='text-sm font-bold text-gray-200 mt-7 cursor-pointer'
+                whileHover={{
+                    color: "white",
+                }}
+            >
+                {props.name}
+            </CardText>
             <Right 
                 className="pointer-events-none"
                 initial="pageInitial"
                 animate="pageAnimate" 
                 variants={{
-                        pageInitial: {
-                            x: 500
-                        }, 
-                        pageAnimate: {
-                            x: 115
-                        }
+                    pageInitial: {
+                        x: 500
+                    }, 
+                    pageAnimate: {
+                        x: 115
+                    }
                 }}
             >
-                <Image src={props.img} alt="car" width={330} height={200}/>
+                <Image src={props.img} alt="car" width={props.width} height={props.height}/>
             </Right>
         </Card>
     </Container>

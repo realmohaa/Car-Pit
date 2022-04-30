@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { verify } from "jsonwebtoken";
+// import { verify } from "jsonwebtoken";
 
-const secret = "51e49600-a42d-4539-8fc0-f9658dda49cc";
 
 export default function middleware(req,res) {
     const { cookies } = req;
@@ -14,11 +13,11 @@ export default function middleware(req,res) {
             return NextResponse.rewrite(new URL('/login', url));
         }
 
-        try {
-            verify(jwt, secret);
-            return NextResponse.next()
-        } catch(e){
-            return NextResponse.rewrite(new URL('/login', url));
-        }
+        // try {
+        //     verify(jwt, secret);
+        //     return NextResponse.next()
+        // } catch(e){
+        //     return NextResponse.rewrite(new URL('/login', url));
+        // }
     }
 }

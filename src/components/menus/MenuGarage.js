@@ -1,10 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { FaHome, FaCar, FaCalendarAlt, FaChartArea, FaSignOutAlt } from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { FiHome } from 'react-icons/fi'
-import { BiCar } from 'react-icons/bi'
+import { MdOutlineInventory2, MdOutlineCategory } from 'react-icons/md'
 import { AiOutlineSchedule } from 'react-icons/ai'
-import { GiHomeGarage } from 'react-icons/gi'
 import profilePic from '../../assets/pp.png'
 import Link from "next/link";
 import styled from 'styled-components';
@@ -237,7 +236,7 @@ const Logout = styled.div`
     }
 `;
 
-const Menu = () => {
+const MenuGarage = () => {
     
     const [click, setClick] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
@@ -254,7 +253,7 @@ const Menu = () => {
             <Button className='bg-blue-500' clicked={click} onClick={() => handleClick()}></Button>
             <PageName>
                 {
-                    router.pathname === ('/dashboard') ? 'Home' : router.pathname.replace('/dashboard/','')            
+                    router.pathname === ('/garage') ? 'Home' : router.pathname.replace('/garage/','')            
                 }
             </PageName>
             <MenuContainer>
@@ -264,7 +263,7 @@ const Menu = () => {
 
                 <SlideBar clicked={click}>
                     <MenuItem>
-                        <Link href="/dashboard/">
+                        <Link href="/garage/">
                             <a>
                                 <Icon>
                                     <FiHome activeClassName='active' className="text-2xl absolute z-10"/>
@@ -275,34 +274,34 @@ const Menu = () => {
                     </MenuItem>
 
                     <MenuItem>
-                        <Link href="/dashboard/cars">
-                            <a>
-                                <Icon>
-                                    <BiCar className="text-2xl absolute z-10"/>
-                                </Icon>
-                                <Title clicked={click}>My Cars</Title>
-                            </a>
-                        </Link>
-                    </MenuItem>
-
-                    <MenuItem>
-                        <Link href="/dashboard/garages">
-                            <a>
-                                <Icon>
-                                    <GiHomeGarage className="text-2xl absolute z-10"/>
-                                </Icon>
-                                <Title clicked={click}>Garages</Title>
-                            </a>
-                        </Link>
-                    </MenuItem>
-
-                    <MenuItem>
-                        <Link href="/dashboard/appointments">
+                        <Link href="/garage/appointments">
                             <a>
                                 <Icon>
                                     <AiOutlineSchedule className="text-2xl absolute z-10"/>
                                 </Icon>
                                 <Title clicked={click}>Appointments</Title>
+                            </a>
+                        </Link>
+                    </MenuItem>
+
+                    <MenuItem>
+                        <Link href="/garage/inventory">
+                            <a>
+                                <Icon>
+                                    <MdOutlineInventory2 className="text-2xl absolute z-10"/>
+                                </Icon>
+                                <Title clicked={click}>Inventory</Title>
+                            </a>
+                        </Link>
+                    </MenuItem>
+
+                    <MenuItem>
+                        <Link href="/garage/categories">
+                            <a>
+                                <Icon>
+                                    <MdOutlineCategory className="text-2xl absolute z-10"/>
+                                </Icon>
+                                <Title clicked={click}>Categories</Title>
                             </a>
                         </Link>
                     </MenuItem>
@@ -329,4 +328,4 @@ const Menu = () => {
     )
 }
 
-export default Menu
+export default MenuGarage

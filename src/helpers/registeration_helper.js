@@ -30,7 +30,6 @@ export const handleRegister = async (e, params, callback) => {
         })
       }
     } catch (err){
-      console.log(err.response)
-      err.response && errNotification(err.response.data.error.message)
+      err.response && errNotification(err.response.data?.error.message)
     }
 }

@@ -1,45 +1,38 @@
-import beach from '../assets/beach.jpg'
+import car from '../assets/car.png'
+import car2 from '../assets/car2.png'
+import gtr from '../assets/gtr.png'
 export const data = [
       {
-        "title": "Find me on Twitter",
-        "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "title": "Ultimate Flexibility",
+        "imageUrl": car,
         "id": 1
       },
       {
-        "title": "Find me on Twitter",
-        "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "title": "Car History",
+        "imageUrl": gtr,
         "id": 2
       },
       {
-        "title": "Find me on Twitter",
-        "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "title": "Appointments Scheduler",
+        "imageUrl": car2,
         "id": 3
       },
       {
-        "title": "Find me on Twitter",
+        "title": "Vehicle auto import",
         "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "imageUrl": car,
         "id": 4
       },
       {
-        "title": "Find me on Twitter",
+        "title": "Powerful Database",
         "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "imageUrl": car2,
         "id": 5
       },
       {
-        "title": "Find me on Twitter",
+        "title": "Time Effecient",
         "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
+        "imageUrl": gtr,
         "id": 6
-      },
-      {
-        "title": "Find me on Twitter",
-        "link": "https://twitter.com/kendalmintcode",
-        "imageUrl": "https://i.pinimg.com/736x/5f/54/88/5f5488974ef5244d5f78afa797036c25.jpg",
-        "id": 7
       },
     ]
