@@ -14,6 +14,8 @@ import {
 import { BsCalendar2X } from 'react-icons/bs'
 import { MdScheduleSend, MdOutlinePublishedWithChanges, MdCancel } from 'react-icons/md'
 import { GoVerified } from 'react-icons/go'
+import { FcSupport } from 'react-icons/fc'
+import {FiEdit} from 'react-icons/fi'
 import styled from "styled-components";
 
 const Button = (props) => {
@@ -53,6 +55,9 @@ const Button = (props) => {
     {props.title === 'Submit Appointment' ? <MdScheduleSend className="ml-2"/> : ''}
     {props.title === 'Cancel' ? <MdCancel className="ml-2 opacity-70"/> : ''}
     {props.title === 'Reschedule' ? <BsCalendar2X className="ml-2 opacity-70"/> : ''}
+    {props.title === 'Manage Order' ? <FcSupport className="ml-2 opacity-70"/> : ''}
+    {props.icon === 'delete' ? <FaRegTrashAlt className="ml-2 opacity-70"/> : ''}
+    {props.icon === 'edit' ? <FiEdit className="ml-2 opacity-70"/> : ''}
   </CustomButton>
   )
 }

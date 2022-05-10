@@ -8,7 +8,10 @@ const nextConfig = {
       'upload.wikimedia.org',
       'cdn0.iconfinder.com'
     ]
-  }
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 module.exports = nextConfig

@@ -1,7 +1,7 @@
 import { FaGasPump, FaCity, FaRoad, FaCog, FaChair, FaMoneyBill, FaCarSide, FaGlobe } from 'react-icons/fa';
 import { RiCarWashingFill, RiPaintFill } from 'react-icons/ri';
 import { MdCarRepair } from 'react-icons/md';
-import { GiFlatTire, GiCarDoor } from 'react-icons/gi';
+import { GiFlatTire, GiCarDoor, GiNotebook } from 'react-icons/gi';
 import moment from 'moment'
 import styled from "styled-components";
 import { motion } from 'framer-motion';
@@ -31,7 +31,6 @@ const FeatureCard = (props) => {
         :
         null
       }
-      <small className="text-gray-600 text-xs">{props.desc}</small>
     </div>
     </div>
 
@@ -49,6 +48,7 @@ const FeatureCard = (props) => {
       {props.icon === 'tires' && (<GiFlatTire className='text-black text-4xl text-blue-400 opacity-20'/>) }
       {props.icon === 'care' && (<RiPaintFill className='text-black text-4xl text-blue-400 opacity-20'/>) }
       {props.icon === 'junk' && (<GiCarDoor className='text-black text-4xl text-blue-400 opacity-20'/>) }
+      {props.icon === 'note' && (<GiNotebook className='text-black text-4xl text-blue-400 opacity-20'/>) }
       </div>
     </Container>
   )
