@@ -186,13 +186,8 @@ const Index = () => {
           )
         }
       </Container>
-
-      {
-        console.log(services)
-      }
-
       <Container>
-        <DraggableCarousel title="Features"/>
+        <DraggableCarousel title="Available Garages"/>
       </Container>
     </User>
     )

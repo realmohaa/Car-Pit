@@ -88,6 +88,7 @@ const MenuContainer = styled.div`
 
     z-index:90;
 `;
+
 const SlideBar = styled.ul`
     color: white;
     list-style: none;

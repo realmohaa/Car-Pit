@@ -2,18 +2,20 @@ import Garage from '../../layouts/Garage';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Axios } from '../../helpers/axios';
-import Button from '../../components/buttons/Button';
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import moment from 'moment'
 import QRCode from "react-qr-code";
 import Router from 'next/router';
 import DateFnsUtils from '@date-io/date-fns';
-import {DateTimePicker,MuiPickersUtilsProvider} from '@material-ui/pickers';
-import {Chip, TextField} from '@mui/material';
+import { DateTimePicker,MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Chip, TextField } from '@mui/material';
 import { errNotification, sucessNotification } from '../../utils/toasts';
 import { FcBusinessman, FcBusinessContact, FcAutomotive, FcPlanner } from 'react-icons/fc'
+import { MdOutlineFreeCancellation, MdOutlineEditCalendar, MdCarRepair } from 'react-icons/md'
 import NoteCard from '../../components/cards/NoteCard';
+import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
 
 const Container = styled.div`
     backdrop-filter: blur(8px) saturate(180%);
@@ -37,6 +39,7 @@ const Actions = styled.div`
     display: flex;
     justify-content: start;
     align-items: end;
+    padding-bottom: .5rem;
     div {
         margin:2rem 1rem 1rem 0;
     }
@@ -54,13 +57,18 @@ const Appointments = () => {
   const [selectedDate, handleDateChange] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [delLoad, setDelLoad] = useState(false);
+
   const handleDelete = async (orderId) => {
+    setDelLoad(true)
     await Axios.delete(`/user/order/` + orderId).then(res => {
       sucessNotification("Appointment Canceled")
     }).catch(e => {
       errNotification("Error Occured while deleting")
       Router.reload(window.location.pathname);
     })
+    setDelLoad(false)
   }
 
     const handleReschedule = async (orderId, selectedDate) => {
@@ -110,20 +118,37 @@ const Appointments = () => {
                         })
                       }
                   </div>
-                  <Actions>
-                      <div onClick={() => handleDelete(order.order_id)}>
-                          <Button color="rgba(10,10,10,.8)" title="Cancel"/>
-                      </div>
-                      <div onClick={() => {
-                        setShowPicker(!showPicker)
-                        }}>
-                          <Button 
-                            color="rgba(25,85,205,.4)"
-                            title="Reschedule"/>
-                      </div>
-                      <div className='absolute bottom-0 right-0'>
-                          <Button color="rgba(10,10,10,.8)" title="Manage Order"/>
-                      </div>
+                  <Actions className='space-x-4 space-y-6'>
+                    <LoadingButton
+                            onClick={() => handleDelete(order.order_id)}
+                            startIcon={<MdOutlineFreeCancellation />}
+                            loading={delLoad}
+                            loadingPosition="end"
+                            variant="contained"
+                            className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-red-600 hover:text-white transition-all duration-150'
+                        >
+                            Cancel
+                    </LoadingButton>
+
+                    <Button
+                        onClick={() => handleReschedule(order.order_id)}
+                        startIcon={<MdOutlineEditCalendar />}
+                        variant="contained"
+                        className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-blue-600 hover:text-white transition-all duration-150'
+                    >
+                        Reschedule
+                    </Button>
+
+                    <div className='absolute right-4'>
+                      <Button
+                      endIcon={<MdCarRepair />}
+                      variant="contained"
+                      className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-gray-800 hover:text-white transition-all duration-150'
+                      >
+                          Manage Order
+                      </Button>
+                    </div>
+
                   </Actions>
               </div>
               <div className='absolute top-0 right-0 w-1/3'>

@@ -1,14 +1,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import Button from '../buttons/Button';
 import RequiredInput from '../inputs/RequiredInput';
 import { useState } from 'react';
-import { addCar } from '../../helpers/car_helper';
-import Loader from '../icons/Loader';
 import { useRouter } from 'next/router';
 import LocationInput from '../inputs/LocationInput';
 import { Axios } from '../../helpers/axios';
-import { errNotification, sucessNotification } from '../../utils/toasts';;
+import { errNotification, sucessNotification } from '../../utils/toasts';
+import { LoadingButton } from '@mui/lab';
+import { MdSend } from 'react-icons/md'
 
 const Box = styled(motion.div)``
 
@@ -80,15 +79,6 @@ const GarageBox = ({ registerBox, services }) => {
             className='modal'
             variants={modal}
             >
-                {
-                    loading 
-                    ?
-                    <div className='w-full flex justify-center items-center'>
-                        <Loader/>
-                    </div>
-                    :
-                    (
-                    <>
                         <p className='text-gray-300 pb-2'>Please enter the following information to complete the registration procedure</p>
                         <form onSubmit={(e) => handleSubmit(e)} className='flex flex-wrap'>
                             <div className='flex flex-wrap'>
@@ -100,12 +90,18 @@ const GarageBox = ({ registerBox, services }) => {
                             <RequiredInput icon="location" value={street} setInput={setStreet} placeholder="Address"/>
                             <RequiredInput icon="post" value={postcode} setInput={setPostcode} placeholder="Postcode"/>
                             <div className='mt-4 w-full'>
-                                <Button title="Send Application"/>
+                                <LoadingButton
+                                    type='submit'
+                                    endIcon={<MdSend />}
+                                    loading={loading}
+                                    loadingPosition="end"
+                                    variant="contained"
+                                    className='rounded-xl px-6 py-2 hover:scale-110 bg-blue-500 hover:bg-blue-600 transition-all duration-200'
+                                >
+                                    Send Application
+                                </LoadingButton>
                             </div>
                         </form>
-                    </>
-                    )
-                }
             </motion.div>
         </Box>
         )

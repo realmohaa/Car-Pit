@@ -9,7 +9,7 @@ export const data = [
       },
       {
         "title": "Car History",
-        "imageUrl": gtr,
+        "imageUrl": car2,
         "id": 2
       },
       {

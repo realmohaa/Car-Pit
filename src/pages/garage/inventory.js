@@ -1,8 +1,11 @@
 import Garage from '../../layouts/Garage'
 import { DataGrid } from '@mui/x-data-grid';
-import Button from '../../components/buttons/Button'
 import Image from 'next/image'
 import pp from '../../assets/care.png'
+import { Button } from '@mui/material';
+import { MdAddCircle, MdDelete } from 'react-icons/md'
+import { RiEditCircleFill } from 'react-icons/ri'
+import { IconButton } from '@mui/material';
 
 const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
@@ -70,8 +73,12 @@ const columns = [
     renderCell: (params) => {
         return (
             <div className='flex space-x-2'>
-                <Button icon="delete" title="Delete"/>
-                <Button icon="edit" title="Edit"/>
+              <IconButton aria-label="delete">
+                <MdDelete />
+              </IconButton>
+              <IconButton aria-label="delete">
+                <RiEditCircleFill />
+              </IconButton>
             </div>
         );
     },
@@ -97,7 +104,13 @@ const Inventory = () => {
     <div style={{ height: 520, width: '80%' }} className="text-white">
     <div className='flex items-center justify-between'>
         <h1 className='font-bold text-xl opacity-75'>Inventory Management</h1>
-        <Button color="rgba(0,0,150,.4)" icon="Add Vehicle" title="Add Product"/>
+        <Button
+            startIcon={<MdAddCircle />}
+            variant="contained"
+            className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-blue-600 hover:text-white transition-all duration-150'
+        >
+            Add Product
+      </Button>
     </div>
     <DataGrid
     className='bg-white mt-4 rounded-xl opacity-90'

@@ -1,11 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import Button from '../buttons/Button';
 import RequiredInput from '../inputs/RequiredInput';
 import { useState } from 'react';
 import { addCar } from '../../helpers/car_helper';
 import Loader from '../icons/Loader';
 import { useRouter } from 'next/router'
+import { MdOutlineAddCircleOutline } from 'react-icons/md'
+import { Button } from '@mui/material';
 
 const Box = styled(motion.div)`
     position: relative
@@ -73,7 +74,15 @@ const AddCarBox = ({ addCarBox }) => {
                         })}>
                             <RequiredInput icon="car" value={vin} setInput={setVin} placeholder="VIN"/>
                             <div className='mt-4'>
-                                <Button title="Add Vehicle"/>
+                                <Button
+                                    type='submit'
+                                    endIcon={<MdOutlineAddCircleOutline />}
+                                    variant="contained"
+                                    disabled={!vin}
+                                    className='rounded-xl px-6 py-2 hover:scale-110 bg-blue-500 hover:bg-blue-600 transition-all duration-200'
+                                >
+                                    Add Vehicle
+                                </Button>
                             </div>
                         </form>
                     </>

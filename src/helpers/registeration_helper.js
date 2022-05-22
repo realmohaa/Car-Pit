@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { errNotification, sucessNotification } from '../utils/toasts';
 
-export const handleRegister = async (e, params, callback) => {
+export const handleRegister = async (e, params, setLoading, callback) => {
     e.preventDefault();
 
     const data = new FormData();
@@ -12,6 +12,7 @@ export const handleRegister = async (e, params, callback) => {
     data.append("password", params.password)
     data.append("profile_image", params.profilePic)
 
+    setLoading(true);
     try {
       if(params.verifiedPass !== params.password){
         errNotification("Password doesn't match")
@@ -32,4 +33,5 @@ export const handleRegister = async (e, params, callback) => {
     } catch (err){
       err.response && errNotification(err.response.data?.error.message)
     }
+    setLoading(false);
 }

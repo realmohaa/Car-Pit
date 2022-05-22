@@ -11,6 +11,8 @@ import PhoneInput from '../components/inputs/PhoneInput';
 import ProfileImgUpload from '../components/inputs/ProfileImgUpload';
 import { toast } from 'react-toastify';
 import { handleRegister } from '../helpers/registeration_helper';
+import { LoadingButton } from '@mui/lab';
+import { RiUserAddFill } from 'react-icons/ri'
 
 toast.configure()
 const Register = () => {
@@ -24,6 +26,8 @@ const Register = () => {
   const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [verifiedPass, setVerifiedPass] = useState('');
+
+  const [loading, setLoading] = useState(false);
 
   const creationParams = {
     username,
@@ -67,7 +71,7 @@ const Register = () => {
             </div>
 
             {/* Login Form */}
-            <form onSubmit={(e) => handleRegister(e, creationParams, (res) => {
+            <form onSubmit={(e) => handleRegister(e, creationParams, setLoading, (res) => {
               if(res.status === 200 || 201) {
                 router.push('/login')
               }
@@ -87,7 +91,7 @@ const Register = () => {
                 {/* Passworrd */}
                 <RequiredInput icon="pass" placeholder="Password" type="password" setInput={setPassword}/>
                 {/* Passworrd */}
-                <RequiredInput icon="confirm" placeholder="Confirm Password" type="password"setInput={setVerifiedPass}/>
+                <RequiredInput icon="confirm" placeholder="Confirm Password" type="password" setInput={setVerifiedPass}/>
                 {/* Phone Number Input */}
                 <div className="relative m-2">
                   <PhoneInput placeholder="Phone Number" value={value} setValue={setValue}/>
@@ -111,7 +115,17 @@ const Register = () => {
               </div>
 
               {/* Register Button */}
-              <Button title="Create Account"/>
+              <LoadingButton
+                type='submit'
+                endIcon={<RiUserAddFill />}
+                loading={loading}
+                loadingPosition="end"
+                variant="contained"
+                disabled={!username || !email || !password}
+                className='rounded-xl px-6 py-2 hover:scale-110 bg-blue-500 hover:bg-blue-600 transition-all duration-200'
+              >
+                Create Account
+              </LoadingButton>
             </form>
           </div>
 

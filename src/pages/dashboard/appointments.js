@@ -2,16 +2,17 @@ import User from '../../layouts/User';
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Axios } from '../../helpers/axios';
-import Button from '../../components/buttons/Button';
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import moment from 'moment'
-import {Chip} from '@mui/material';
+import { Chip } from '@mui/material';
 import QRCode from "react-qr-code";
 import Router from 'next/router';
 import Link from 'next/link'
-
 import { errNotification, sucessNotification } from '../../utils/toasts';
+import { LoadingButton } from '@mui/lab';
+import { Button } from '@mui/material';
+import { MdOutlineFreeCancellation, MdOutlineEditCalendar } from 'react-icons/md'
 
 const Container = styled.div`
     backdrop-filter: blur(8px) saturate(180%);
@@ -49,14 +50,17 @@ z-index:90
 const Appointments = () => {
 
   const [orders, setOrders] = useState();
+  const [loading, setLoading] = useState();
 
   const handleDelete = async (orderId) => {
+    setLoading(true)
     await Axios.delete(`/user/order/` + orderId).then(res => {
       sucessNotification("Appointment Canceled")
     }).catch(e => {
       errNotification("Error Occured while deleting")
       Router.reload(window.location.pathname);
     })
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -88,13 +92,25 @@ const Appointments = () => {
                         })
                       }
                   </div>
-                  <Actions>
-                      <div onClick={() => handleDelete(order.order_id)}>
-                          <Button color="black" title="Cancel"/>
-                      </div>
-                      <div onClick={() => handleReschedule(order.order_id)}>
-                          <Button color="black" title="Reschedule"/>
-                      </div>
+                  <Actions className='space-x-4 space-y-6'>
+                        <LoadingButton
+                          onClick={() => handleDelete(order.order_id)}
+                          startIcon={<MdOutlineFreeCancellation />}
+                          loading={loading}
+                          loadingPosition="end"
+                          variant="contained"
+                          className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-red-600 hover:text-white transition-all duration-150'
+                      >
+                          Cancel
+                      </LoadingButton>
+                      <Button
+                          onClick={() => handleReschedule(order.order_id)}
+                          startIcon={<MdOutlineEditCalendar />}
+                          variant="contained"
+                          className='rounded-xl px-6 py-2 hover:scale-105 bg-black text-base capitalize text-[rgba(255,255,255,.5)] hover:bg-blue-600 hover:text-white transition-all duration-150'
+                      >
+                          Reschedule
+                      </Button>
                   </Actions>
               </div>
       

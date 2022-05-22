@@ -20,8 +20,8 @@
 </p>
 
 ### Overview
-<img src="https://im2.ezgif.com/tmp/ezgif-2-56dfbfebe4.gif" alt="Logo"/>
-<img src="https://im2.ezgif.com/tmp/ezgif-2-4beb33cdcc.gif" alt="Logo"/>
+![demo](https://im2.ezgif.com/tmp/ezgif-2-56dfbfebe4.gif)
+![demo-2](https://im2.ezgif.com/tmp/ezgif-2-4beb33cdcc.gif)
 
 ### Built With
 Main packages used in this project

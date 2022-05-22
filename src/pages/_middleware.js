@@ -11,14 +11,14 @@ export default function middleware(req,res) {
     
     if(url.includes('/dashboard')){
         if(jwt === undefined) {
-            return NextResponse.rewrite(new URL('/login', url));
+            return NextResponse.rewrite(new URL('/', url));
         }
 
         try {
             // verify(jwt, secret);
             return NextResponse.next()
         } catch(e){
-            return NextResponse.rewrite(new URL('/login', url));
+            return NextResponse.rewrite(new URL('/', url));
         }
     }
 }

@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import pp from '../../assets/garage.png';
 import styled from 'styled-components';
-import Button from '../buttons/Button';
 import RequiredInput from '../inputs/RequiredInput';
 import { Axios } from '../../helpers/axios';
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react';
-import {FcApproval,FcGlobe,FcAnswers,FcManager} from 'react-icons/fc'
+import { FcApproval,FcGlobe,FcAnswers,FcManager } from 'react-icons/fc'
 import { errNotification, sucessNotification } from '../../utils/toasts';
-import {Box, MenuItem, FormControl, Select, Chip, TextareaAutosize, TextField} from '@mui/material';
+import { Box, MenuItem, FormControl, Select, Chip, TextareaAutosize, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { MdUpdate, MdLogout } from 'react-icons/md'
 
 const Container = styled.div`
 backdrop-filter: blur(8px) saturate(180%);
@@ -25,14 +26,21 @@ const GarageProfile = (props) => {
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
 
+  const [logoutLoad, setLogout] = useState(false);
+  const [updateLoad, setUpdate] = useState(false);
+
   const handleLogout = async (e) => {
     e.preventDefault();
-    await Axios.post('/user/profile/logout');
-    router.push('/login')
+    setLogout(true)
+    await Axios.post('/user/profile/logout').then(() => {
+      return setLogout(false)
+    });
+    return router.push('/')
   }
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+    setUpdate(true)
     await Axios.put('/user/profile/', {
       username,
       email,
@@ -44,6 +52,7 @@ const GarageProfile = (props) => {
     }).catch(e => {
       errNotification(e.response?.data.error.message)
     })
+    setUpdate(false)
   }
 
   useEffect(() => {
@@ -78,13 +87,30 @@ const GarageProfile = (props) => {
                 </div>
               </div>
               <div className="flex w-full justify-start py-4 space-x-4">
-                <div onClick={(e) => handleUpdate(e)}>
-                <Button className="" title="Update"/>
-                </div>
-                {/* <Button className='bg-blue-400' title="Verify"/> */}
-                <div onClick={(e) => handleLogout(e)}>
-                  <Button className='bg-red-600' title="Logout"/>
-                </div>
+                <div className="flex w-full justify-start pt-4 space-x-4">
+                  <LoadingButton
+                    onClick={(e) => handleUpdate(e)}
+                    endIcon={<MdUpdate />}
+                    loading={updateLoad}
+                    loadingPosition="end"
+                    variant="contained"
+                    disabled={!username || !email}
+                    className='rounded-xl px-6 py-2 hover:scale-110 bg-blue-500 hover:bg-blue-600 transition-all duration-200'
+                  >
+                  Update
+                </LoadingButton>
+
+                <LoadingButton
+                  onClick={(e) => handleLogout(e)}
+                  endIcon={<MdLogout />}
+                  loading={logoutLoad}
+                  loadingPosition="end"
+                  variant="contained"
+                  className='rounded-xl px-6 py-2 hover:scale-110 bg-blue-500 hover:bg-blue-600 transition-all duration-200'
+                  >
+                  Logout
+                </LoadingButton>
+              </div>
               </div>
             </form>
             <div className='flex flex-1 flex-col items-end py-4 grow'>

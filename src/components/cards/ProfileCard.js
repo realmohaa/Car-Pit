@@ -1,17 +1,18 @@
 import Image from 'next/image';
 import pp from '../../assets/pp.png';
 import styled from 'styled-components';
-import Button from '../buttons/Button';
 import FeatureCard from './FeatureCard';
 import { FcGlobe, FcLeft } from 'react-icons/fc'
-import { BsStarFill } from 'react-icons/bs'
+import { FaArrowCircleLeft } from 'react-icons/fa'
+import { BsStarFill, BsCalendar2Check, BsCalendar } from 'react-icons/bs'
 import { useState } from 'react';
 import DateFnsUtils from '@date-io/date-fns';
-import {DateTimePicker,MuiPickersUtilsProvider} from '@material-ui/pickers';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { motion } from 'framer-motion';
-import {Box, MenuItem, FormControl, Select, Chip, TextareaAutosize, TextField} from '@mui/material';
+import { Box, MenuItem, FormControl, Select, Chip, TextareaAutosize, TextField, Button } from '@mui/material';
 import { Axios } from '../../helpers/axios';
 import { errNotification, sucessNotification } from '../../utils/toasts';
+import { LoadingButton } from '@mui/lab';
 
 const Container = styled(motion.div)`
 backdrop-filter: blur(8px) saturate(180%);
@@ -40,6 +41,8 @@ const ProfileCard = ({data, userVehicles}) => {
   const [showOrder, setShowOrder] = useState(false)
   const [submit, showSubmit] = useState(true)
 
+  const [loading, setLoading] = useState(false)
+
   const handleChange = (e) => {
     const {
       target: { value },
@@ -59,7 +62,7 @@ const ProfileCard = ({data, userVehicles}) => {
 
   const handleAppointment = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     await Axios.post('/user/order', {
       garage_id: data.garage_id,
       client_description: issue,
@@ -73,7 +76,7 @@ const ProfileCard = ({data, userVehicles}) => {
     }).catch(e => {
       errNotification(e.response?.data.error.message)
     });
-
+    setLoading(false)
   }
 
   return (
@@ -98,8 +101,8 @@ const ProfileCard = ({data, userVehicles}) => {
                     setShowOrder(false)
                     showSubmit(true)
                   }} 
-                  className='absolute left-4 cursor-pointer hover:scale-110 hover:text-black transition top-4'>
-                    <FcLeft className='text-white text-2xl'/>
+                  className='absolute text-xl text-[rgba(255,255,255,.5)] hover:scale-110 hover:text-white left-4 cursor-pointer transition top-4'>
+                    <FaArrowCircleLeft/>
                   </a>
                 )
                 :
@@ -207,8 +210,17 @@ const ProfileCard = ({data, userVehicles}) => {
                       value={issue}
                       onChange={(e) => setIssue(e.target.value)}
                     />
-                    <div onClick={(e) => handleAppointment(e)} className='text-center'>
-                      <Button className="text-center" color="rgba(0,225,0,.5)" title="Submit Appointment"/>
+                    <div className='text-center'>
+                      <LoadingButton
+                        onClick={(e) => handleAppointment(e)}
+                        endIcon={<BsCalendar2Check/>}
+                        loading={loading}
+                        loadingPosition="end"
+                        variant="contained"
+                        className='rounded-xl px-6 py-2 capitalize text-base hover:scale-110 bg-green-600 hover:bg-blue-600 transition-all duration-200'
+                        >
+                        Request Appointment
+                      </LoadingButton>
                     </div>
                   </FormControl>
                   </div>
@@ -221,13 +233,20 @@ const ProfileCard = ({data, userVehicles}) => {
               submit
               ?
               <div className="flex flex-col justify-center items-center space-x-3 lg:mt-6 pb-6">
-                <div onClick={() => 
+                <div>
+                  <Button
+                    onClick={() => 
                       {
                         setShowOrder(!showOrder)
                         showSubmit(false)
                       }
-                  }>
-                  <Button color="rgba(0,225,0,.5)" title="Schedule Appointment"/>
+                    }
+                    endIcon={<BsCalendar/>}
+                    variant="contained"
+                    className='rounded-xl px-6 py-2 capitalize text-base hover:scale-110 bg-green-600 hover:bg-blue-600 transition-all duration-200'
+                    >
+                    Schedule Appointment
+                  </Button>
                 </div>
               </div>
             :
